@@ -3,6 +3,9 @@
 
 ## Requirements
 
+#### Comments
+<p>Comment on everything! It will force you to think about what you're doing and it will save others and future you time when trying to decipher code.</p> 
+
 #### Wireframes
 * Should scope out all parameters:
     * 9x9 grid
@@ -73,4 +76,6 @@
 * [How to play minesweeper](https://www.youtube.com/watch?v=l24k_KQg84k)
 
 ## GitHub:
-Make sure to create your own branch and push your finished code! If you work in a group, just be sure to list all contributors! I will review the code and give any suggestions next week!
+<p>Make sure to create your own branch and push your finished code! If you work in a group, just be sure to list all contributors! I will review the code and give any suggestions next week!</p>
+
+<p>Push regulary to your branch with meaningful commit messages!</p>
