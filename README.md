@@ -62,15 +62,15 @@
     * add in a mulligan for those who suck.
 
 ## Super Bonus!
-<p>We haven't learned about databases yet, so saving high scores would be a challenge. An alternative you could try for now is to write a script, that writes to a file that contains high scores.</p>
+<p>We haven't learned about databases yet, so saving high scores would be a challenge. An alternative you could try for now is to write a script, that writes to a file that contains high scores. Then you could have a highscores link that displays an html file containing the top 10 scores!</p>
     
 
 ## Example Clone:
 <p>This is an example project created by my classmate penguyen1. This was created for his first project at the start of week 4. I'd suggest using this as a reference for ideas if you get stuck. His version also has a lot of bugs! It would be a great project to contribute updates too for practice.</p>
 
-[github repo](https://github.com/penguyen1/click_click_BOOM)
-[Deployed Game](http://penguyen1.github.io/click_click_BOOM/)
-[How to play minesweeper](https://www.youtube.com/watch?v=l24k_KQg84k)
+* [github repo](https://github.com/penguyen1/click_click_BOOM)
+* [Deployed Game](http://penguyen1.github.io/click_click_BOOM/)
+* [How to play minesweeper](https://www.youtube.com/watch?v=l24k_KQg84k)
 
 ## GitHub:
-Make sure to create your own branch and push your finished code! If you work in a group, just be sure to list all contirbuters! I will review the code and give any suggestions next week!
+Make sure to create your own branch and push your finished code! If you work in a group, just be sure to list all contributors! I will review the code and give any suggestions next week!
