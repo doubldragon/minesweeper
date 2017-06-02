@@ -2,7 +2,9 @@
 let HTMLboard = document.getElementById("board");
 
 // board variables
-let size = 10,
+let col = 10,
+    rows = 10,
+    size = col * rows;
     board = new Array(size).fill(false);
 
 // cell constructor funciton
@@ -10,6 +12,7 @@ let Cell = (() => {
   let nextId = 0;
    return function Cell() {
       this.id = nextId++;
+      this.revealed = false;
       this.clickable = true;
       this.isMine = false;
       this.touchingMines;
@@ -23,9 +26,9 @@ let Cell = (() => {
    }
 })();
 
-function insertDiv (i) {
+function insertDiv (a, index) {
     let div = document.createElement("div");
-    HTMLboard.appendChild(div);
+    HTMLboard.appendChild(div).id = index;
 }
 
 board.map(insertDiv);
