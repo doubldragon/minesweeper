@@ -15,7 +15,6 @@ let Cell = (() => {
       this.isMine = false;
       this.touchingMines;
       this.flag = false; 
-      this.html = `<div id=${this.id}></div>`;
       this.mineCheck = () => {
         if (this.isMine){
             console.log("boom");
@@ -24,7 +23,9 @@ let Cell = (() => {
    }
 })();
 
+var $00 = new Cell();
 
+console.log($00);
 
 function boardGeneration (x) {
     

@@ -15,3 +15,18 @@
 // Import Base Helpers
 @import "base/_helpers";
 
+#board {
+    width: 400px;
+    height: 400px;
+}
+
+#board div {
+    background: black;
+    display: inline-block;
+    width: 10%;
+    height: 10%;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    border: 1px solid white;
+}
