@@ -1,13 +1,14 @@
 #board {
   width: 400px;
   height: 400px;
-  color: white; }
+  color: white;
+  margin: auto; }
 
 #board div {
   background: #333;
   display: inline-block;
-  width: 10%;
-  height: 10%;
+  width: 9%;
+  height: 9%;
   margin: 0;
   padding: 0;
   vertical-align: middle;
@@ -16,10 +17,11 @@
 #board .empty {
   background: #3a8c60; }
 
-#board .bomb {
-  background: #9a2d2d; }
-
 #board .flag {
   background: #ea8591; }
+
+/* is bomb style */
+#board div[data-ismine=true] {
+  background: #9a2d2d; }
 
 /*# sourceMappingURL=styles.css.map */
