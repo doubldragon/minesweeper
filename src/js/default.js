@@ -2,10 +2,8 @@
 let HTMLboard = document.getElementById("board");
 
 // board variables
-let col = 10,
-    rows = 10,
-    size = col * rows;
-    board = new Array(size).fill(false);
+let size = 10,
+    board = new Array(size * size).fill(false);
 
 // cell constructor funciton
 let Cell = (() => {
