@@ -24,12 +24,19 @@ let Cell = (() => {
    }
 })();
 
-function insertDiv (a, index) {
-    let div = document.createElement("div");
-    HTMLboard.appendChild(div).id = index;
+
+
+function boardGeneration (x) {
+    
+    for (var i = 0; i < x; i++) {
+        for (var j = 0; j < x; j++) {
+            let div = document.createElement("div");
+            HTMLboard.appendChild(div).id = i + "_" + j ;
+        }
+    }  
 }
 
-board.map(insertDiv);
+boardGeneration(size);
 
 // make array of 10 x 10 empty then generate the divs with unique ids.
 // then pick n amount of random ids and switch them to this.is mine
