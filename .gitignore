@@ -3,4 +3,6 @@
 .codekit.cache
 scss/.sass-cache
 config.codekit
+node_modules/
+bower_components/
 npm-debug.log
