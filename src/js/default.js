@@ -44,14 +44,20 @@ function mineGeneration () {
 
 function numGen(bombs) {
     bombs.map(a => {
-        let area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
+        let area;
+        if ((a + 1) % size === 0) {
+            area = [a - 1, a + size, a - size, a + size - 1, a - size - 1];
+        } else if (a % size === 0) {
+            area = [a + 1, a + size, a - size, a + size + 1, a - size + 1];
+        } else {
+            area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
+        }
         console.log(area);
         area.map(b => {
             if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")){
                 let num = HTMLboard.children[b].getAttribute("data-touching");
                 console.log(num);
                 HTMLboard.children[b].setAttribute("data-touching", parseInt(num) + 1);
-                HTMLboard.children[b].innerHTML = HTMLboard.children[b].getAttribute("data-touching");
             }
         });
 

@@ -21,7 +21,8 @@
   background: #ea8591; }
 
 /* is bomb style */
-#board div[data-ismine=true] {
-  background: #9a2d2d; }
+/*#board div[data-ismine=true] {
+    background: #9a2d2d;
+}*/
 
 /*# sourceMappingURL=styles.css.map */
