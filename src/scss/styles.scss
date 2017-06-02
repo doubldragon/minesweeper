@@ -21,7 +21,7 @@
 }
 
 #board div {
-    background: black;
+    background: #333;
     display: inline-block;
     width: 10%;
     height: 10%;
@@ -29,4 +29,16 @@
     padding: 0;
     vertical-align: middle;
     border: 1px solid white;
+}
+
+#board .empty {
+    background: #3a8c60;
+}
+
+#board .bomb {
+    background: #9a2d2d;
+}
+
+#board .flag {
+    background: #ea8591;
 }

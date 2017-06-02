@@ -2419,7 +2419,7 @@ input:-ms-input-placeholder {
   height: 400px; }
 
 #board div {
-  background: black;
+  background: #333;
   display: inline-block;
   width: 10%;
   height: 10%;
@@ -2427,5 +2427,14 @@ input:-ms-input-placeholder {
   padding: 0;
   vertical-align: middle;
   border: 1px solid white; }
+
+#board .empty {
+  background: #3a8c60; }
+
+#board .bomb {
+  background: #9a2d2d; }
+
+#board .flag {
+  background: #ea8591; }
 
 /*# sourceMappingURL=styles.css.map */
