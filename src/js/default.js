@@ -12,6 +12,7 @@ let Cell = (() => {
   let nextId = 0;
    return function Cell() {
       this.id = nextId++;
+      this.revealed = false;
       this.clickable = true;
       this.isMine = false;
       this.touchingMines;
@@ -25,9 +26,9 @@ let Cell = (() => {
    }
 })();
 
-function insertDiv (i) {
+function insertDiv (a, index) {
     let div = document.createElement("div");
-    HTMLboard.appendChild(div);
+    HTMLboard.appendChild(div).id = index;
 }
 
 board.map(insertDiv);
