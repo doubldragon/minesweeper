@@ -37,9 +37,10 @@
     background: #3a8c60;
 }
 
-#board .flag {
+#board div[data-flag=true] {
     background: #ea8591;
 }
+
 /* is bomb style */ 
 /*#board div[data-ismine=true] {
     background: #9a2d2d;

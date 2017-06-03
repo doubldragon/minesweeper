@@ -17,7 +17,7 @@
 #board .empty {
   background: #3a8c60; }
 
-#board .flag {
+#board div[data-flag=true] {
   background: #ea8591; }
 
 /* is bomb style */

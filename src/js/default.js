@@ -16,6 +16,7 @@ function boardGeneration (x) {
             let div = document.createElement("div");
             div.setAttribute("data-ismine", false);
             div.setAttribute("data-revealed", false);
+            div.setAttribute("data-clickable", true);
             div.setAttribute("data-flag", false);
             div.setAttribute("data-question", false);
             div.setAttribute("data-touching", 0);
@@ -24,7 +25,7 @@ function boardGeneration (x) {
         }
     }  
 }
-console.log(board);
+
 boardGeneration(size);
 
 function mineGeneration () {
@@ -52,11 +53,9 @@ function numGen(bombs) {
         } else {
             area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
         }
-        console.log(area);
         area.map(b => {
             if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")){
                 let num = HTMLboard.children[b].getAttribute("data-touching");
-                console.log(num);
                 HTMLboard.children[b].setAttribute("data-touching", parseInt(num) + 1);
             }
         });
@@ -66,6 +65,16 @@ function numGen(bombs) {
 
 
 numGen(mineGeneration());
+
+// left click HTMLboard.addEventListener("click", funciton , true);
+HTMLboard.addEventListener("contextmenu", function (e){
+    // be able to remove flag if clicked again...Ternary?
+    let flag = e.target.getAttribute("data-flag"),
+        clickable = e.target.setAttribute("data-clickable");
+    e.preventDefault();
+    e.target.setAttribute("data-flag", true);
+    e.target.setAttribute("data-clickable", false);
+});
 
 // // cell constructor function
 // let Cell = (() => {
