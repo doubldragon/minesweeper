@@ -5,7 +5,7 @@
   margin: auto; }
 
 #board div {
-  background: #333;
+  background: darkgray;
   display: inline-block;
   width: 9%;
   height: 9%;
@@ -18,7 +18,28 @@
   background: #3a8c60; }
 
 #board div[data-flag=true] {
-  background: #ea8591; }
+  background-image: url('../img/flag.svg');
+  background-color: gray; 
+}
+
+#board div[data-flag=false] {
+  /*background-image: url('../img/flag.svg');*/
+  background: darkgray; 
+}
+
+#board div[data-revealed=true] {
+  background-color: gray;
+  color: #fff;
+  text-align: middle middle;
+  font-size: 18px;
+}
+#board div[lost=true] {
+  background-color: red;
+  background-image: url('../img/bomb.svg');
+}
+
+#board div[data-revealed=true],
+  {
 
 /* is bomb style */
 /*#board div[data-ismine=true] {
