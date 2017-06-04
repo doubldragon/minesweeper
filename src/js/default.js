@@ -69,11 +69,12 @@ numGen(mineGeneration());
 // left click HTMLboard.addEventListener("click", funciton , true);
 HTMLboard.addEventListener("contextmenu", function (e){
     // be able to remove flag if clicked again...Ternary?
-    let flag = e.target.getAttribute("data-flag"),
-        clickable = e.target.setAttribute("data-clickable");
+    let flag = (e.target.getAttribute("data-flag") == "false") ? true : false,
+        clickable = (e.target.getAttribute("data-clickable") == "true") ? false: true;
     e.preventDefault();
-    e.target.setAttribute("data-flag", true);
-    e.target.setAttribute("data-clickable", false);
+
+    e.target.setAttribute("data-flag", flag);
+    e.target.setAttribute("data-clickable", clickable);
 });
 
 // // cell constructor function
