@@ -1,4 +1,7 @@
+
+
 #board {
+  font-family: 'Play', sans-serif;
   width: 400px;
   height: 400px;
   color: white;
@@ -19,6 +22,13 @@
   vertical-align: middle;
   border: 4px outset #b7b7b7; }
 
+p {
+    vertical-align: middle;
+    text-align: center;
+    margin: 7px auto;
+    display: block;
+}  
+
 #board div:active {
   border: 4px inset #dedede;
   border-style: inset;
@@ -31,28 +41,34 @@
   background: #ea8591; }
 
 /* is bomb style */
-#board div[data-ismine=true] {
+/*#board div[data-ismine=true] {
     background: #9a2d2d;
+}*/
+
+#board div[data-touching] {
+    color: blue;
 }
 
-#board div[data-touching="1"] {
-    background: pink;
+#board div[data-touching = "2"] {
+    color: green;
 }
-#board div[data-touching="2"] {
-    background: pink;
+
+#board div[data-touching = "3"] {
+    color: red;
 }
-#board div[data-touching="3"] {
-    background: pink;
+
+#board div[data-touching = "4"] {
+    color: #d41dd4;
 }
-#board div[data-touching="4"] {
-    background: pink;
-}
-#board div[data-touching="5"] {
-    background: pink;
+
+#board div[data-touching = "5"] {
+    color: maroon;
 }
 
 #board div[data-revealed="true"] {
-    background: green;
+  border: 4px inset #dedede;
+  border-style: inset;
+  background: #cecccc;
 }
 
 

@@ -86,14 +86,17 @@ function reveal(e) {
         e = e.target;
     }
     console.log(e);
+    let clickable = Boolean(e.getAttribute("data-clickable") === "true"),
+        bomb = Boolean(e.getAttribute("data-ismine") === "true"),
+        touch = Boolean(parseInt(e.getAttribute("data-touching")) > 0);
     // if the cell is clickable
-    if (e.getAttribute("data-clickable") === "true") {
+    if (clickable) {
         // inside if
-        if (e.getAttribute("data-ismine") === "true") {
+        if (bomb) {
             e.setAttribute("data-clickable", false);
             return terminate();
-        } else if (parseInt(e.getAttribute("data-touching")) > 0) {
-            e.innerHTML = e.getAttribute("data-touching");
+        } else if (touch) {
+            e.innerHTML = "<p>" + e.getAttribute("data-touching") + "</p>";
             e.setAttribute("data-clickable", false);
             e.setAttribute("data-revealed", true);
         } else {
