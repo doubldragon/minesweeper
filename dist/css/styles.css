@@ -2,17 +2,27 @@
   width: 400px;
   height: 400px;
   color: white;
-  margin: auto; }
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
 
 #board div {
-  background: #333;
+  background: #7d7d7d;
   display: inline-block;
-  width: 9%;
-  height: 9%;
+  width: 8%;
+  height: 8%;
   margin: 0;
   padding: 0;
   vertical-align: middle;
-  border: 1px solid white; }
+  border: 4px outset #b7b7b7; }
+
+#board div:active {
+  border: 4px inset #dedede;
+  border-style: inset;
+  background: #cecccc; }
 
 #board .empty {
   background: #3a8c60; }

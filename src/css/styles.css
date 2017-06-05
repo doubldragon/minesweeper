@@ -1,24 +1,44 @@
+
 @import url('https://fonts.googleapis.com/css?family=Coda:800');
 
 html {
   background-color: lightgrey;
 }
 
+
 #board {
+  font-family: 'Play', sans-serif;
   width: 400px;
   height: 400px;
   color: white;
-  margin: auto; }
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
 
 #board div {
-  background: #333;
+  background: #7d7d7d;
   display: inline-block;
-  width: 9%;
-  height: 9%;
+  width: 8%;
+  height: 8%;
   margin: 0;
   padding: 0;
   vertical-align: middle;
-  border: 1px solid white; }
+  border: 4px outset #b7b7b7; }
+
+p {
+    vertical-align: middle;
+    text-align: center;
+    margin: 7px auto;
+    display: block;
+}  
+
+#board div:active {
+  border: 4px inset #dedede;
+  border-style: inset;
+  background: #cecccc; }
 
 #board .empty {
   background: #3a8c60; }
@@ -30,6 +50,33 @@ html {
 /*#board div[data-ismine=true] {
     background: #9a2d2d;
 }*/
+
+#board div[data-touching] {
+    color: blue;
+}
+
+#board div[data-touching = "2"] {
+    color: green;
+}
+
+#board div[data-touching = "3"] {
+    color: red;
+}
+
+#board div[data-touching = "4"] {
+    color: #d41dd4;
+}
+
+#board div[data-touching = "5"] {
+    color: maroon;
+}
+
+#board div[data-revealed="true"] {
+  border: 4px inset #dedede;
+  border-style: inset;
+  background: #cecccc;
+}
+
 
 /*# sourceMappingURL=styles.css.map */
 
@@ -47,7 +94,7 @@ h1 {
 }
 
 #NewGame {
-      display: block;
+    display: block;
     margin: auto;
     margin-bottom: 10px;
 }

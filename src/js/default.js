@@ -1,4 +1,3 @@
-
 // HTML
 let HTMLboard = document.getElementById("board"),
     restartButton = document.getElementById("NewGame");
@@ -11,10 +10,11 @@ let size = 10, // size will equal what size the grid will be. Maybe changeable.
 // Creating a grid with each cell having data attributes and unique ids for easier calling
 // and manipulation throughout the rest of the game. 
 
-function boardGeneration (x) {
-    
+
+function boardGeneration(x) {
+
     for (var i = 0; i < x; i++) {
-         board.push([]); 
+        //board.push([]); 
         for (var j = 0; j < x; j++) {
             let div = document.createElement("div");
             div.setAttribute("data-ismine", false);
@@ -23,10 +23,10 @@ function boardGeneration (x) {
             div.setAttribute("data-flag", false);
             div.setAttribute("data-question", false);
             div.setAttribute("data-touching", 0);
-            HTMLboard.appendChild(div).id = i + "_" + j;
-            board[i].push([div]);
+            HTMLboard.appendChild(div).id = i + "" + j;
+            // board[i].push([div]);
         }
-    }  
+    }
 }
 
 //called function to create board. Maybe add to new function at the top for game initialization?
@@ -50,7 +50,7 @@ function mineGeneration () {
 
     // mapped through the array to change attribute of the cell to contain the bomb
     bombs.map((a) => {
-    HTMLboard.children[a].setAttribute("data-ismine", true); 
+        HTMLboard.children[a].setAttribute("data-ismine", true);
     });
     console.log(bombs);
     return bombs;
@@ -86,7 +86,7 @@ function numGen(bombs) {
         // iterates through the area within the board and the non-mine cells and increments each number
         // in the cell based on the number of mines it is touching.
         area.map(b => {
-            if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")){
+            if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")) {
                 let num = HTMLboard.children[b].getAttribute("data-touching");
                 HTMLboard.children[b].setAttribute("data-touching", parseInt(num) + 1);
             }
@@ -98,35 +98,71 @@ function numGen(bombs) {
 // calls number generation by passing bombs through it as the array in question
 numGen(mineGeneration());
 
-// left click HTMLboard.addEventListener("click", function , true);
 
-// adding an eventlistener for a right-click (contextmenu) to denote where to place flags 
-HTMLboard.addEventListener("contextmenu", function (e){
-    // be able to remove flag if clicked again...Ternary?
-    let flag = e.target.getAttribute("data-flag"),
-        clickable = e.target.getAttribute("data-clickable");
-    e.preventDefault(); // prevents the menu from displaying on right click
-    e.target.setAttribute("data-flag", true); 
-    e.target.setAttribute("data-clickable", false);
+HTMLboard.addEventListener("click", reveal, true);
+
+HTMLboard.addEventListener("contextmenu", function(e) {
+    let flag = (e.target.getAttribute("data-flag") == "false") ? true : false,
+        clickable = (e.target.getAttribute("data-clickable") == "true") ? false : true;
+
+    e.preventDefault();
+
+    e.target.setAttribute("data-flag", flag);
+    e.target.setAttribute("data-clickable", clickable);
+
 });
 
-// // cell constructor function
-// let Cell = (() => {
-//   let nextId = 0;
-//    return function Cell() {
-//       this.id = nextId++;
-//       this.revealed = false;
-//       this.clickable = true;
-//       this.isMine = false;
-//       this.touchingMines;
-//       this.flag = false; 
-//       this.mineCheck = () => {
-//         if (this.isMine){
-//             console.log("boom");
-//         } 
-//       };
-//    }
-// })();
+function reveal(e) {
+
+    // check if e.target is a thing first click or not
+    if (e.target === undefined) {
+        e = e;
+    } else {
+        e = e.target;
+    }
+    console.log(e);
+    let clickable = Boolean(e.getAttribute("data-clickable") === "true"),
+        bomb = Boolean(e.getAttribute("data-ismine") === "true"),
+        touch = Boolean(parseInt(e.getAttribute("data-touching")) > 0);
+    // if the cell is clickable
+    if (clickable) {
+        // inside if
+        if (bomb) {
+            e.setAttribute("data-clickable", false);
+            return terminate();
+        } else if (touch) {
+            e.innerHTML = "<p>" + e.getAttribute("data-touching") + "</p>";
+            e.setAttribute("data-clickable", false);
+            e.setAttribute("data-revealed", true);
+        } else {
+            e.setAttribute("data-revealed", true);
+            e.setAttribute("data-clickable", false);
+            let area;
+            let a = parseInt(e.id);
+            if ((a + 1) % size === 0) {
+                area = [a - 1, a + size, a - size, a + size - 1, a - size - 1];
+            } else if (a % size === 0) {
+                area = [a + 1, a + size, a - size, a + size + 1, a - size + 1];
+            } else {
+                area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
+            }
+            console.log(area);
+            area.map(function(a) {
+                if ((a < (size * size) && a >= 0)) {
+                    reveal(HTMLboard.children[a]);
+                }
+
+            });
+        }
+        //end inner if else
+    }
+
+
+}
+
+function terminate() {
+    console.log("died");
+}
 
 
 let min    = 0,
