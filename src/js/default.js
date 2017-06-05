@@ -1,4 +1,3 @@
-
 // HTML
 let HTMLboard = document.getElementById("board");
 
@@ -6,12 +5,12 @@ let HTMLboard = document.getElementById("board");
 let size = 10,
     board = [],
     ratio = Math.ceil((Math.pow(size, 2) * .2));
-    
 
-function boardGeneration (x) {
-    
+
+function boardGeneration(x) {
+
     for (var i = 0; i < x; i++) {
-         //board.push([]); 
+        //board.push([]); 
         for (var j = 0; j < x; j++) {
             let div = document.createElement("div");
             div.setAttribute("data-ismine", false);
@@ -21,14 +20,14 @@ function boardGeneration (x) {
             div.setAttribute("data-question", false);
             div.setAttribute("data-touching", 0);
             HTMLboard.appendChild(div).id = i + "" + j;
-           // board[i].push([div]);
+            // board[i].push([div]);
         }
-    }  
+    }
 }
 
 boardGeneration(size);
 
-function mineGeneration () {
+function mineGeneration() {
     let bombs = new Array(size * size).fill(0);
     bombs = bombs.map((a, index) => {
         return a = index;
@@ -38,7 +37,7 @@ function mineGeneration () {
     });
     bombs.splice(ratio);
     bombs.map((a) => {
-    HTMLboard.children[a].setAttribute("data-ismine", true); 
+        HTMLboard.children[a].setAttribute("data-ismine", true);
     });
     return bombs;
 }
@@ -54,7 +53,7 @@ function numGen(bombs) {
             area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
         }
         area.map(b => {
-            if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")){
+            if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")) {
                 let num = HTMLboard.children[b].getAttribute("data-touching");
                 HTMLboard.children[b].setAttribute("data-touching", parseInt(num) + 1);
             }
@@ -66,34 +65,34 @@ function numGen(bombs) {
 
 numGen(mineGeneration());
 
-HTMLboard.addEventListener("click", reveal , true);
+HTMLboard.addEventListener("click", reveal, true);
 
-HTMLboard.addEventListener("contextmenu", function (e){
+HTMLboard.addEventListener("contextmenu", function(e) {
     let flag = (e.target.getAttribute("data-flag") == "false") ? true : false,
-        clickable = (e.target.getAttribute("data-clickable") == "true") ? false: true;
-   
+        clickable = (e.target.getAttribute("data-clickable") == "true") ? false : true;
+
     e.preventDefault();
 
     e.target.setAttribute("data-flag", flag);
     e.target.setAttribute("data-clickable", clickable);
 });
 
-function reveal (e) {
+function reveal(e) {
 
     // check if e.target is a thing first click or not
-    if (e.target === undefined){
+    if (e.target === undefined) {
         e = e;
     } else {
         e = e.target;
     }
-        console.log(e);
-// if the cell is clickable
-    if (e.getAttribute("data-clickable") === "true"){
+    console.log(e);
+    // if the cell is clickable
+    if (e.getAttribute("data-clickable") === "true") {
         // inside if
-           if (e.getAttribute("data-ismine") === "true"){
+        if (e.getAttribute("data-ismine") === "true") {
             e.setAttribute("data-clickable", false);
             return terminate();
-        } else if (parseInt(e.getAttribute("data-touching")) > 0){
+        } else if (parseInt(e.getAttribute("data-touching")) > 0) {
             e.innerHTML = e.getAttribute("data-touching");
             e.setAttribute("data-clickable", false);
             e.setAttribute("data-revealed", true);
@@ -109,18 +108,22 @@ function reveal (e) {
             } else {
                 area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
             }
-            area.map(function(a){
-                reveal(HTMLboard.children[a]);
+            console.log(area);
+            area.map(function(a) {
+                if ((a < (size * size) && a >= 0)) {
+                    reveal(HTMLboard.children[a]);
+                }
+
             });
-        } 
+        }
         //end inner if else
     }
-    
-     
+
+
 }
 
-function terminate () {
-    console.log("died"); 
+function terminate() {
+    console.log("died");
 }
 
 // // cell constructor function
@@ -140,5 +143,3 @@ function terminate () {
 //       };
 //    }
 // })();
-
-
