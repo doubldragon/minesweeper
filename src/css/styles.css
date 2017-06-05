@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Coda:800');
+
+html {
+  background-color: lightgrey;
+}
+
 #board {
   width: 400px;
   height: 400px;
@@ -26,3 +32,22 @@
 }*/
 
 /*# sourceMappingURL=styles.css.map */
+
+h1 {
+  font-family: 'Coda', cursive;;
+  display: block;
+  text-align: center;
+}
+
+#mainlogo {
+  display: block;
+  margin: auto;
+  max-width: 40%;
+  padding-top: 15px;
+}
+
+#NewGame {
+      display: block;
+    margin: auto;
+    margin-bottom: 10px;
+}
