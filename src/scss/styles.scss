@@ -19,7 +19,11 @@
 @import url('https://fonts.googleapis.com/css?family=Coda:800');
 
 html {
-  background-color: lightgrey;
+  background-color: white;
+}
+
+#main, #main #board {
+  margin: auto;
 }
 
 
@@ -28,12 +32,8 @@ html {
   width: 400px;
   height: 400px;
   color: white;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
+
+}
 
 #board div {
   background: #7d7d7d;
