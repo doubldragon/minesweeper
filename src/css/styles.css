@@ -31,8 +31,29 @@
   background: #ea8591; }
 
 /* is bomb style */
-/*#board div[data-ismine=true] {
+#board div[data-ismine=true] {
     background: #9a2d2d;
-}*/
+}
+
+#board div[data-touching="1"] {
+    background: pink;
+}
+#board div[data-touching="2"] {
+    background: pink;
+}
+#board div[data-touching="3"] {
+    background: pink;
+}
+#board div[data-touching="4"] {
+    background: pink;
+}
+#board div[data-touching="5"] {
+    background: pink;
+}
+
+#board div[data-revealed="true"] {
+    background: green;
+}
+
 
 /*# sourceMappingURL=styles.css.map */

@@ -5,13 +5,13 @@ let HTMLboard = document.getElementById("board");
 // board variables
 let size = 10,
     board = [],
-    ratio = Math.pow(size, 2) * .2;
-
+    ratio = Math.ceil((Math.pow(size, 2) * .2));
+    
 
 function boardGeneration (x) {
     
     for (var i = 0; i < x; i++) {
-         board.push([]); 
+         //board.push([]); 
         for (var j = 0; j < x; j++) {
             let div = document.createElement("div");
             div.setAttribute("data-ismine", false);
@@ -20,8 +20,8 @@ function boardGeneration (x) {
             div.setAttribute("data-flag", false);
             div.setAttribute("data-question", false);
             div.setAttribute("data-touching", 0);
-            HTMLboard.appendChild(div).id = i + "_" + j;
-            board[i].push([div]);
+            HTMLboard.appendChild(div).id = i + "" + j;
+           // board[i].push([div]);
         }
     }  
 }
@@ -66,16 +66,62 @@ function numGen(bombs) {
 
 numGen(mineGeneration());
 
-// left click HTMLboard.addEventListener("click", funciton , true);
+HTMLboard.addEventListener("click", reveal , true);
+
 HTMLboard.addEventListener("contextmenu", function (e){
-    // be able to remove flag if clicked again...Ternary?
     let flag = (e.target.getAttribute("data-flag") == "false") ? true : false,
         clickable = (e.target.getAttribute("data-clickable") == "true") ? false: true;
+   
     e.preventDefault();
 
     e.target.setAttribute("data-flag", flag);
     e.target.setAttribute("data-clickable", clickable);
 });
+
+function reveal (e) {
+
+    // check if e.target is a thing first click or not
+    if (e.target === undefined){
+        e = e;
+    } else {
+        e = e.target;
+    }
+        console.log(e);
+// if the cell is clickable
+    if (e.getAttribute("data-clickable") === "true"){
+        // inside if
+           if (e.getAttribute("data-ismine") === "true"){
+            e.setAttribute("data-clickable", false);
+            return terminate();
+        } else if (parseInt(e.getAttribute("data-touching")) > 0){
+            e.innerHTML = e.getAttribute("data-touching");
+            e.setAttribute("data-clickable", false);
+            e.setAttribute("data-revealed", true);
+        } else {
+            e.setAttribute("data-revealed", true);
+            e.setAttribute("data-clickable", false);
+            let area;
+            let a = parseInt(e.id);
+            if ((a + 1) % size === 0) {
+                area = [a - 1, a + size, a - size, a + size - 1, a - size - 1];
+            } else if (a % size === 0) {
+                area = [a + 1, a + size, a - size, a + size + 1, a - size + 1];
+            } else {
+                area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
+            }
+            area.map(function(a){
+                reveal(HTMLboard.children[a]);
+            });
+        } 
+        //end inner if else
+    }
+    
+     
+}
+
+function terminate () {
+    console.log("died"); 
+}
 
 // // cell constructor function
 // let Cell = (() => {
