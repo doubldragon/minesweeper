@@ -2,16 +2,46 @@
 // Website or App Stylesheet
 // ==========================================================================
 
-// Variables and Colors
-@import "styles/variables-colors";
+// // Variables and Colors
+// @import "styles/variables-colors";
 
-// Import Base
-@import "base";
+// // Import Base
+// @import "base";
 
-// Website / App Styles
-@import "styles/header";
-@import "styles/footer";
+// // Website / App Styles
+// @import "styles/header";
+// @import "styles/footer";
 
-// Import Base Helpers
-@import "base/_helpers";
+// // Import Base Helpers
+// @import "base/_helpers";
 
+#board {
+    width: 400px;
+    height: 400px;
+    color: white;
+    margin: auto;
+}
+
+#board div {
+    background: #333;
+    display: inline-block;
+    width: 9%;
+    height: 9%;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    border: 1px solid white;
+}
+
+#board .empty {
+    background: #3a8c60;
+}
+
+#board div[data-flag=true] {
+    background: #ea8591;
+}
+
+/* is bomb style */ 
+/*#board div[data-ismine=true] {
+    background: #9a2d2d;
+}*/
