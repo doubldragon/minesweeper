@@ -118,6 +118,7 @@ function toggleFlag(evt) {
 function lookup(a) {
  
  // cells.map(a => {
+        size =parseInt(size);
         console.log("looking up: " + a + '  size = ' + size);
         let gridLookup = [a + 1, a + size + 1, a - size + 1, 
                           a + size, a - size, 
@@ -130,7 +131,11 @@ function lookup(a) {
         } else {
             gridLookup = gridLookup; //[a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
         };
-        // console.log(gridLookup);
+       
+       // if (gridL)
+
+        //recursively search for addtional blank squares here
+
 
         return gridLookup;
 //         gridLookup.map(b => {
@@ -142,17 +147,28 @@ function lookup(a) {
 // }); //needs to return an array of locations to check
 }
 
+function findEmpty(loc){
+    var results = [];
+    var toFind = [loc];
+    if (!results.includes(loc) && (HTMLboard.children[loc].getAttribute("data-touching") === '0')){
+        results = findEmpty(loc)
+    }
+
+    return results;
+}
+
 function checkSpace(loc) {
-    // let loc = parseInt(evt.target.getAttribute("location"));
+    loc = parseInt(loc);
     toSearch = [loc];
     if (!toSearch.includes(loc)){
-        toSearch.concat(lookup(loc));
+        toSearch = toSearch.concat(lookup(loc));   
     };
+    console.log(toSearch);
     toSearch.forEach(function (check)  {
         HTMLboard.children[check].setAttribute("data-revealed", true);
         if (HTMLboard.children[check].getAttribute("data-touching") === '0'){
             console.log('toSearch = ' + toSearch);
-            toSearch = toSearch.concat(checkSpace(parseInt(check)));
+            toSearch = toSearch.concat(lookup(check));
             console.log('Post Recursion: ' + toSearch);
             };
     });
@@ -169,7 +185,7 @@ function checkSpace(loc) {
 
     console.log('Finding spaces to open');
     
-    }
+}
     //if good open right
 
 
