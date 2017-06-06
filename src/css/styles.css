@@ -19,7 +19,7 @@
 
 #board div[data-flag=true] {
   background-image: url('../img/flag.svg');
-  background-color: gray; 
+  /*background-color: gray; */
 }
 
 #board div[data-flag=false] {

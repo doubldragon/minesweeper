@@ -1,4 +1,3 @@
-
 // HTML
 let HTMLboard = document.getElementById("board");
 let bombs;
@@ -10,10 +9,10 @@ let size = 10,
     toSearch;
 
 
-function boardGeneration (x) {
+function boardGeneration(x) {
     let count = 0;
     for (var i = 0; i < x; i++) {
-         board.push([]); 
+        board.push([]);
         for (var j = 0; j < x; j++) {
             let div = document.createElement("div");
             div.setAttribute("location", count);
@@ -30,12 +29,12 @@ function boardGeneration (x) {
             count++;
             board[i].push([div]);
         }
-    }  
+    }
 }
 
 boardGeneration(size);
 
-function mineGeneration () {
+function mineGeneration() {
     bombs = new Array(size * size).fill(0);
     bombs = bombs.map((a, index) => {
         return a = index;
@@ -46,7 +45,7 @@ function mineGeneration () {
     // console.log(bombs);
     bombs.splice(ratio);
     bombs.map((a) => {
-    HTMLboard.children[a].setAttribute("data-ismine", true); 
+        HTMLboard.children[a].setAttribute("data-ismine", true);
     });
 
     return bombs;
@@ -63,7 +62,7 @@ function numGen(bombs) {
             area = [a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
         }
         area.map(b => {
-            if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")){
+            if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")) {
                 let num = HTMLboard.children[b].getAttribute("data-touching");
                 HTMLboard.children[b].setAttribute("data-touching", parseInt(num) + 1);
             }
@@ -75,123 +74,74 @@ function numGen(bombs) {
 
 numGen(mineGeneration());
 
-// // left click HTMLboard.addEventListener("click", funciton , true);
-// HTMLboard.addEventListener("contextmenu", function (e){
-//     // be able to remove flag if clicked again...Ternary?
-//     let flag = e.target.getAttribute("data-flag"),
-//         clickable = e.target.setAttribute("data-clickable");
-//     e.preventDefault();
-//     e.target.setAttribute("data-flag", true);
-//     e.target.setAttribute("data-clickable", false);
-// });
-
 function clickSquare(evt) {
-  //check for bomb
-  //open up appropriate squares
-   if (evt.target.getAttribute("data-ismine") === 'true'){
+    //check for bomb
+    //open up appropriate squares
+    if (evt.target.getAttribute("data-ismine") === 'true') {
         gameLost();
-    }; 
-  checkSpace(evt.target.getAttribute("location"));
-  console.log("left click");
-  evt.target.setAttribute("data-revealed", true);
-  if (evt.target.getAttribute("data-touching") !== '0'){
-    evt.target.innerHTML = evt.target.getAttribute("data-touching");
-    evt.target.removeEventListener("click", clickSquare);
-    evt.target.removeEventListener("contextmenu", toggleFlag);
-  } else {
-    evt.target.removeEventListener("contextmenu", toggleFlag);
-  }
+    };
+    reveal(parseInt(evt.target.getAttribute("location")));
 }
 
 function toggleFlag(evt) {
-  console.log("right click");
-  if (evt.target.getAttribute("data-flag") === 'true'){
-    evt.target.setAttribute("data-flag", false);
-    evt.target.addEventListener("click", clickSquare);
-  } else {
-    evt.target.setAttribute("data-flag", true);
-    evt.target.removeEventListener("click", clickSquare);
-  };
-
-}
-
-function lookup(a) {
- 
- // cells.map(a => {
-        size =parseInt(size);
-        console.log("looking up: " + a + '  size = ' + size);
-        let gridLookup = [a + 1, a + size + 1, a - size + 1, 
-                          a + size, a - size, 
-                          a - 1, a + size - 1, a - size - 1];
-        // console.log(gridLookup)
-        if ((a + 1) % size === 0) {
-            gridLookup = gridLookup.slice(3); //[a - 1, a + size, a - size, a + size - 1, a - size - 1];
-        } else if (a % size === 0) {
-            gridLookup = gridLookup.slice(0,5); //[a + 1, a + size, a - size, a + size + 1, a - size + 1];
-        } else {
-            gridLookup = gridLookup; //[a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
-        };
-       
-       // if (gridL)
-
-        //recursively search for addtional blank squares here
-
-
-        return gridLookup;
-//         gridLookup.map(b => {
-//             if ((b < (size * size) && b >= 0) && (HTMLboard.children[b].getAttribute("data-ismine") == "false")){
-//                 let num = HTMLboard.children[b].getAttribute("data-touching");
-//                 HTMLboard.children[b].setAttribute("data-touching", parseInt(num) + 1);
-//             }
-//         });
-// }); //needs to return an array of locations to check
-}
-
-function findEmpty(loc){
-    var results = [];
-    var toFind = [loc];
-    if (!results.includes(loc) && (HTMLboard.children[loc].getAttribute("data-touching") === '0')){
-        results = findEmpty(loc)
-    }
-
-    return results;
-}
-
-function checkSpace(loc) {
-    loc = parseInt(loc);
-    toSearch = [loc];
-    if (!toSearch.includes(loc)){
-        toSearch = toSearch.concat(lookup(loc));   
+    console.log("right click");
+    if (evt.target.getAttribute("data-flag") === 'true') {
+        evt.target.setAttribute("data-flag", false);
+        evt.target.addEventListener("click", clickSquare);
+    } else {
+        evt.target.setAttribute("data-flag", true);
+        evt.target.removeEventListener("click", clickSquare);
     };
-    console.log(toSearch);
-    toSearch.forEach(function (check)  {
-        HTMLboard.children[check].setAttribute("data-revealed", true);
-        if (HTMLboard.children[check].getAttribute("data-touching") === '0'){
-            console.log('toSearch = ' + toSearch);
-            toSearch = toSearch.concat(lookup(check));
-            console.log('Post Recursion: ' + toSearch);
-            };
-    });
-    
 
-    // if (evt.target.getAttribute("data-touching") !== '0') {
-    //     evt.target.setAttribute("data-revealed", true);
-    // } else {
-    //     evt.target.setAttribute("data-revealed", true);
-    //     toSearch = toSearch.concat(checkSpace(evt, check));
-    // };
-
-    
-
-    console.log('Finding spaces to open');
-    
 }
-    //if good open right
+
+function lookup(a) { //find the 8 surrounding tiles
+    size = parseInt(size);
+    console.log("looking up: " + a + '  size = ' + size);
+    let gridLookup = [a + 1, a + size + 1, a - size + 1,
+        a + size, a - size,
+        a - 1, a + size - 1, a - size - 1
+    ];
+    if ((a + 1) % size === 0) {
+        gridLookup = gridLookup.slice(3); //[a - 1, a + size, a - size, a + size - 1, a - size - 1];
+    } else if (a % size === 0) {
+        gridLookup = gridLookup.slice(0, 5); //[a + 1, a + size, a - size, a + size + 1, a - size + 1];
+    } else {
+        gridLookup = gridLookup; //[a + 1, a - 1, a + size, a - size, a + size - 1, a - size - 1, a + size + 1, a - size + 1];
+    };
+    return gridLookup;
+}
+
+function reveal(square) {
+    square = parseInt(square);
+    HTMLboard.children[square].setAttribute("data-revealed", true)
+    if (HTMLboard.children[square].getAttribute("data-touching") !== '0') {
+        HTMLboard.children[square].innerHTML = HTMLboard.children[square].getAttribute("data-touching");
+        HTMLboard.children[square].removeEventListener("click", clickSquare);
+        HTMLboard.children[square].removeEventListener("contextmenu", toggleFlag);
+    } else {
+        HTMLboard.children[square].removeEventListener("contextmenu", toggleFlag);
+    }
+    if (HTMLboard.children[square].getAttribute("data-touching") === '0') {
+        let neighbors = lookup(square);
+        neighbors.map(function(a) {
+            if ((a < (size * size) && a >= 0) &&
+                HTMLboard.children[a].getAttribute("data-revealed") === 'false') {
+                reveal(a);
+            };
+        });
+    };
+
+
+}
+
+
 
 
 function gameLost() {
     bombs.map(a => {
         HTMLboard.children[a].setAttribute("lost", true);
+        setTimeout(gameLost, 500);
     });
     //show all the bombs
     //show game lost message
