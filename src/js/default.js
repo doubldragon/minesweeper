@@ -6,11 +6,16 @@ let HTMLboard = document.getElementById("board"),
 // board variables
 let size = 10, // size will equal what size the grid will be. Maybe changeable.
     board = [], //empty array to fill in the board
-    ratio = Math.pow(size, 2) * .2; // How many bombs to create? 20% of size
+    ratio = Math.pow(size, 2) * .15; // How many bombs to create? 20% of size
 
 // Creating a grid with each cell having data attributes and unique ids for easier calling
 // and manipulation throughout the rest of the game. 
 let bombs;
+
+let min    = 0,
+    zeroPlaceholder = 0,
+    second = 00;
+    let t;
 
 
 
@@ -113,7 +118,9 @@ function clickSquare(evt) {
         gameLost();
     } else {
         reveal(parseInt(evt.target.getAttribute("location")));
+        didWeWin();
     };
+    
 }
 
 function toggleFlag(evt) {
@@ -172,23 +179,41 @@ function gameLost() {
     bombs.map(a => {
         HTMLboard.children[a].setAttribute("lost", true);
     });
-    for (var i = 0; i< (size^2); i ++) {
+    for (var i = 0; i< (size*size); i ++) {
         HTMLboard.children[i].removeEventListener("click", clickSquare);
         HTMLboard.children[i].removeEventListener("contextmenu", toggleFlag);
     }
+    clearTimeout(t);
     //show all the bombs
     //show game lost message
     //ask for new game
 }
 
-function gameWon() {
-    //show winning message and time.
-    //ask for new game
+function didWeWin () {
+    let count = 0;
+    console.log("Did We Win?");
+    for (var i = 0; i < (size*size); i++) {
+        if ((HTMLboard.children[i].getAttribute("data-revealed") === 'false') && 
+            HTMLboard.children[i].getAttribute("data-ismine")) {
+            count++;
+        }
+    }
+    if (count === bombs.length) {
+        gameWon();
+    };  
 }
 
-let min    = 0,
-    zeroPlaceholder = 0,
-    second = 00;
+function gameWon() {
+    for (var i = 0; i < (size*size); i++) {
+        if ((HTMLboard.children[i].getAttribute("data-ismine")) === 'false') {
+           HTMLboard.children[i].innerHTML = "<p>😎</p>";
+    };
+    HTMLboard.children[i].removeEventListener("click", clickSquare);
+    HTMLboard.children[i].removeEventListener("contextmenu", toggleFlag);
+    HTMLboard.children[i].setAttribute("data-clickable", false);
+    clearTimeout(t);
+};
+}
 
 function countUP () {
         second++;
@@ -202,7 +227,7 @@ function countUP () {
           if(second == 00){
               zeroPlaceholder = 0;
           }
-        setTimeout ("countUP()", 1000 );//runs itsself after 1000 miliseconds
+        t = setTimeout ("countUP()", 1000 );//runs itsself after 1000 miliseconds
         document.getElementById("timer").innerText = min+':'+zeroPlaceholder+second;
       };
 
