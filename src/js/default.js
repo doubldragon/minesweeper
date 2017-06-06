@@ -136,7 +136,6 @@ function toggleFlag(evt) {
 
 function lookup(a) { //find the 8 surrounding tiles
     size = parseInt(size);
-    console.log("looking up: " + a + '  size = ' + size);
     let gridLookup = [a + 1, a + size + 1, a - size + 1,
         a + size, a - size,
         a - 1, a + size - 1, a - size - 1
@@ -191,7 +190,6 @@ function gameLost() {
 
 function didWeWin () {
     let count = 0;
-    console.log("Did We Win?");
     for (var i = 0; i < (size*size); i++) {
         if ((HTMLboard.children[i].getAttribute("data-revealed") === 'false') && 
             HTMLboard.children[i].getAttribute("data-ismine")) {
