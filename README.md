@@ -1,3 +1,5 @@
+# Run NPM install
+
 # Minesweeper Clone
 <p>Create a clone of the classic minesweeper game. This is for personal practice and I suggest working on this over the weekend to keep your skills up!</p>
 
