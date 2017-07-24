@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     uglify = require('gulp-uglify'),
     autoprefixer = require('gulp-autoprefixer'),
+    normalizecss = require('normalize-css'),
     runSequence = require('run-sequence');
 
 // Task to compile SCSS
